@@ -1,0 +1,31 @@
+name: ci-cd
+
+on:
+  push
+  
+jobs:
+  test-backend:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Python environment
+      uses: actions/setup-python@1.1.1
+    - name: Install requirements
+      working-directory: backend
+      run: |
+        pip install --quiet fastapi
+        pip install --quiet uvicorn
+    - name: Lint code
+      working-directory: backend
+      run: |
+        flake8 --ignore=E501,E231 *.py
+        pylint --disable=C0301 --disable=C0326 *.py
+        
+  test-frontend:
+    runs-on: node:16-alpine
+    steps:
+    - name: Lint frontend
+      working-directory: frontend
+      run: |
+        yarn install
+        yarn lint
