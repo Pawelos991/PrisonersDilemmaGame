@@ -67,6 +67,10 @@ jobs:
   build-backend:
     needs: test-backend 
     runs-on: ubuntu-18.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v3
       - name: Build docker image
