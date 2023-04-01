@@ -56,7 +56,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build docker image
         working-directory: frontend
-        run: docker build . --file Dockerfile --tag frontend
+        run: docker build . --file Dockerfile --tag ghcr.io/pawelos991/frontend:${{ github.run_id }}
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Push image to GitHub Container Registry
@@ -71,7 +71,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build docker image
         working-directory: backend
-        run: docker build . --file Dockerfile --tag backend
+        run: docker build . --file Dockerfile --tag ghcr.io/pawelos991/backend:${{ github.run_id }}
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Push image to GitHub Container Registry
