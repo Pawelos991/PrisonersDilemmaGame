@@ -28,7 +28,11 @@ jobs:
   test-frontend:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
     - name: Setup Yarn
       uses: mskelton/setup-yarn@v1
     - name: Lint frontend
