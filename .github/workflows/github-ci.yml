@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup Python environment
-      uses: actions/setup-python@1.1.1
+      uses: actions/setup-python@v4
     - name: Install requirements
       working-directory: backend
       run: |
