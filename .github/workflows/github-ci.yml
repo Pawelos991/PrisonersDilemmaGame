@@ -5,7 +5,7 @@ on:
   
 jobs:
   test-backend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Setup Python environment
@@ -26,7 +26,7 @@ jobs:
         pylint --disable=C0301 --disable=C0114 --disable=C0116 --disable=W0612 --disable=R0912 --disable=R0914 --disable=W0603 --disable=C0103 --disable=R0915 --disable=R0913 *.py
         
   test-frontend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Setup Node
@@ -49,28 +49,28 @@ jobs:
         cmd: build
         dir: 'frontend'
   
-  build-frontend:
-    needs: test-frontend 
-    runs-on: ubuntu-18.04
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build docker image
-        working-directory: frontend
-        run: docker build . --file Dockerfile --tag ghcr.io/pawelos991/frontend:${{ github.run_id }}
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: Push image to GitHub Container Registry
-        run: |
-          IMAGE_ID=ghcr.io/pawelos991/frontend:${{ github.run_id }}
-          docker push $IMAGE_ID
+#   build-frontend:
+#     needs: test-frontend 
+#     runs-on: ubuntu-22.04
+#     permissions:
+#       contents: read
+#       packages: write
+#       id-token: write
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Build docker image
+#         working-directory: frontend
+#         run: docker build . --file Dockerfile --tag ghcr.io/pawelos991/frontend:${{ github.run_id }}
+#       - name: Log into GitHub Container Registry
+#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+#       - name: Push image to GitHub Container Registry
+#         run: |
+#           IMAGE_ID=ghcr.io/pawelos991/frontend:${{ github.run_id }}
+#           docker push $IMAGE_ID
     
 #   build-backend:
 #     needs: test-backend 
-#     runs-on: ubuntu-18.04
+#     runs-on: ubuntu-22.04
 #     permissions:
 #       contents: read
 #       packages: write
