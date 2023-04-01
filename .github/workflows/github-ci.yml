@@ -26,7 +26,7 @@ jobs:
         pylint --disable=C0301 --disable=C0114 --disable=C0116 --disable=W0612 --disable=R0912 --disable=R0914 --disable=W0603 --disable=C0103 --disable=R0915 --disable=R0913 *.py
         
   test-frontend:
-    runs-on: node:16-alpine
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
     - name: Setup Yarn
