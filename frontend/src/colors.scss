@@ -1,0 +1,20 @@
+$hc-primary-background: black;
+$hc-secondary-background: #0d0d0d;
+
+$hc-primary-color: yellow;
+
+$hc-logo-filter: brightness(0.9) sepia(1) hue-rotate(15deg) saturate(500%);
+
+$navy-blue: #261474;
+$orange: #f7a600;
+$sapphire: #3a5ba7;
+$azure: #5aa1d8;
+$turquoise: #50bcbd;
+
+:export {
+  navyBlue: $navy-blue;
+  orange: $orange;
+  sapphire: $sapphire;
+  azure: $azure;
+  turquoise: $turquoise;
+}

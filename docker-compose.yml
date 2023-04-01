@@ -1,0 +1,17 @@
+version: "2.0"
+
+services:
+    web:
+        container_name: prisoner-back
+        image: prisoner-back
+        build:
+            context: ./backend
+        ports:
+            - 5000:5000
+    app:
+        container_name: prisoner-front
+        image: prisoner-front
+        build:
+            context: ./frontend
+        ports:
+            - 3000:80

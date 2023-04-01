@@ -1,0 +1,67 @@
+@use 'colors';
+
+.pageRoot {
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../img/prison.jpg');
+  background-size: cover;
+
+  .cardContainer {
+    flex-grow: 1;
+    width: 100%;
+
+    :global(.p-card-content) {
+      padding: 0;
+    }
+
+    :global(.font-size-component) {
+      margin-right: 0;
+    }
+  }
+}
+
+.version {
+  border-top: 1px solid var(--surface-border);
+  color: gray;
+  font-size: 0.9em;
+  font-family: monospace;
+  margin-left: 1em;
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CE93D8;
+}
+
+.loginBtn:global(.p-button) {
+  background: linear-gradient(
+    60deg,
+    rgba(247, 166, 0, 1) 0%,
+    rgba(247, 166, 0, 1) 12%,
+    rgba(255, 254, 254, 1) 12%,
+    rgba(255, 254, 254, 1) 13%,
+    rgba(38, 20, 116, 1) 13%,
+    rgba(38, 20, 116, 1) 100%
+  );
+  border-radius: 20px;
+  border-color: #ffffff;
+
+  &:hover {
+    background: linear-gradient(
+      60deg,
+      rgba(247, 166, 0, 1) 0%,
+      rgba(247, 166, 0, 1) 12%,
+      rgba(255, 254, 254, 1) 12%,
+      rgba(255, 254, 254, 1) 13%,
+      rgba(38, 20, 116, 1) 13%,
+      rgba(38, 20, 116, 1) 100%
+    ) !important;
+  }
+}
