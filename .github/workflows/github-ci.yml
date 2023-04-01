@@ -50,9 +50,10 @@ jobs:
         dir: 'frontend'
   
   build-frontend:
+    needs: test-frontend 
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@3
+      - uses: actions/checkout@1
       - name: Build docker image
         working-directory: frontend
         run: docker build . --file Dockerfile --tag frontend
@@ -64,9 +65,10 @@ jobs:
           docker push $IMAGE_ID
     
   build-backend:
+    needs: test-backend 
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@3
+      - uses: actions/checkout@1
       - name: Build docker image
         working-directory: backend
         run: docker build . --file Dockerfile --tag backend
