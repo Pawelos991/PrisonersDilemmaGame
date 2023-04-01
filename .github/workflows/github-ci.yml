@@ -32,11 +32,17 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: 16
-    - name: Setup Yarn
-      uses: mskelton/setup-yarn@v1
-    - name: Lint frontend
-      working-directory: frontend
-      run: |
-        yarn install
-        yarn lint
+        node-version: 17
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: install
+    - name: Test the app
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: lint
+    - name: Build production bundle
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: build
+        dir: 'frontend'
