@@ -37,10 +37,12 @@ jobs:
       uses: borales/actions-yarn@v4
       with:
         cmd: install
+        dir: 'frontend'
     - name: Test the app
       uses: borales/actions-yarn@v4
       with:
         cmd: lint
+        dir: 'frontend'
     - name: Build production bundle
       uses: borales/actions-yarn@v4
       with:
