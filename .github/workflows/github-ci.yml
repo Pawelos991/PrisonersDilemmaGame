@@ -23,7 +23,7 @@ jobs:
       working-directory: backend
       run: |
         flake8 --ignore=E501,E231 *.py
-        pylint --disable=C0301 --disable=C0326 --disable=C0114 --disable=C0116 --diable=W0612 --disable=R0912 --disable=CR0914 --disable=W0603 *.py
+        pylint --disable=C0301 --disable=C0326 --disable=C0114 --disable=C0116 --disable=W0612 --disable=R0912 --disable=CR0914 --disable=W0603 *.py
         
   test-frontend:
     runs-on: node:16-alpine
