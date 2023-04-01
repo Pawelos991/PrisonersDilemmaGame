@@ -17,6 +17,8 @@ jobs:
       run: |
         pip install --quiet fastapi
         pip install --quiet uvicorn
+        pip install --quiet flake8
+        pip install --quiet pylint
     - name: Lint code
       working-directory: backend
       run: |
