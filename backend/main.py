@@ -4,8 +4,8 @@ from os import environ
 
 from fastapi import BackgroundTasks, FastAPI
 from fastapi.responses import JSONResponse
-import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 app = FastAPI()
 
@@ -176,7 +176,7 @@ def enemy_for_final_battle(enemy, player):
 
 # Find_best_strategy
 def find_best_strategy():
-    global IS_LEARNING, GENERATIONS_TO_DO
+    global IS_LEARNING
     global GENERATIONS_DONE  # Count how many generations there were
     GENERATIONS_DONE = 0
 
