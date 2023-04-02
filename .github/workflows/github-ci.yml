@@ -5,9 +5,9 @@ on:
   
 jobs:
   test-backend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Setup Python environment
       uses: actions/setup-python@v4
       with:
@@ -23,13 +23,81 @@ jobs:
       working-directory: backend
       run: |
         flake8 --ignore=E501,E231 *.py
-        pylint --disable=C0301 --disable=C0114 --disable=C0116 --disable=W0612 --disable=R0912 --disable=R0914 --disable=W0603 --disable=C0103 --disable=R0915 *.py
+        pylint --disable=C0301 --disable=C0114 --disable=C0116 --disable=W0612 --disable=R0912 --disable=R0914 --disable=W0603 --disable=C0103 --disable=R0915 --disable=R0913 *.py
         
   test-frontend:
-    runs-on: node:16-alpine
+    runs-on: ubuntu-22.04
     steps:
-    - name: Lint frontend
-      working-directory: frontend
-      run: |
-        yarn install
-        yarn lint
+    - uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 17
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: install
+        dir: 'frontend'
+    - name: Test the app
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: lint
+        dir: 'frontend'
+    
+  build-backend:
+    needs: test-backend 
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build docker image
+        working-directory: backend
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:login
+          heroku container:push web -a prisoners-dilemma-backend
+  
+  build-frontend:
+    needs: test-frontend 
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+          dir: 'frontend'
+      - name: Build docker image
+        working-directory: frontend
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:login
+          heroku container:push web -a prisoners-dilemma
+  
+  deploy-backend:
+    needs: build-backend
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy backend image
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:login
+          heroku container:release web -a prisoners-dilemma-backend
+  
+  deploy-frontend:
+    needs: build-frontend
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy frontend image
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:login
+          heroku container:release web -a prisoners-dilemma
+        
+        
+    
