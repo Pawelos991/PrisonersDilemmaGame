@@ -12,7 +12,8 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:8080",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://prisoners-dilemma.herokuapp.com"
 ]
 
 app.add_middleware(
@@ -323,4 +324,4 @@ async def get_strategy_result():
 
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host='0.0.0.0', port=environ.get("PORT", 5000))
+    uvicorn.run("main:app", host='0.0.0.0', port=int(environ.get("PORT", 5000)))

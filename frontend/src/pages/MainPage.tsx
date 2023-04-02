@@ -44,7 +44,7 @@ export default function MainPage() {
 
   useMemo(async () => {
     if (actualState === 3) {
-      await fetch('http://127.0.0.1:5000/develop-strategy/get-result')
+      await fetch('https://prisoners-dilemma-backend.herokuapp.com/develop-strategy/get-result')
                     .then(res => res.json())
                     .then(json => {
                       let i = 0;
@@ -70,7 +70,7 @@ export default function MainPage() {
   }, [howManyTurns, howManyInGeneration, howManyGenerations, yearsForWinner, yearsBothBetray, yearsBothCooperate, yearsForLoser])
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/develop-strategy/possible-enemies')
+    fetch('https://prisoners-dilemma-backend.herokuapp.com/develop-strategy/possible-enemies')
                     .then(res => res.json())
                     .then(json => {
                       setPossibleEnemies(
@@ -343,7 +343,7 @@ export default function MainPage() {
                               const pointsBothCooperate = maxYears - yearsBothCooperate!
                               setActualState(2);
                               setProgress(0);
-                              fetch('http://localhost:5000/develop-strategy/start/' 
+                              fetch('https://prisoners-dilemma-backend.herokuapp.com/develop-strategy/start/' 
                                   + String(selectedEnemy) + '/' 
                                   + howManyInGeneration + '/'
                                   + howManyTurns + '/'
@@ -356,7 +356,7 @@ export default function MainPage() {
                                   .then(json => {
                                       if (json === 0) {
                                           setUpdateProgressInterval(setInterval(() => {
-                                              fetch('http://127.0.0.1:5000/develop-strategy/check-progress')
+                                              fetch('https://prisoners-dilemma-backend.herokuapp.com/develop-strategy/check-progress')
                                                   .then(res => res.json())
                                                   .then(json => {
                                                       setProgress(json)
