@@ -43,6 +43,11 @@ jobs:
       with:
         cmd: lint
         dir: 'frontend'
+    - name: Build production bundle
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: build
+        dir: 'frontend'
     
   build-backend:
     needs: test-backend 
@@ -62,11 +67,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - name: Build production bundle
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-          dir: 'frontend'
       - name: Build docker image
         working-directory: frontend
         env: 
