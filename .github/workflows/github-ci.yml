@@ -73,7 +73,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build docker image
         working-directory: backend
-        run: heroku container:push web -a prisoners-dilemma-backend
+        run: |
+          heroku container:login
+          heroku container:push web -a prisoners-dilemma-backend
   
   deploy-backend:
     needs: build-backend
@@ -81,7 +83,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy backend image
-        run: heroku container:release web -a prisoners-dilemma-backend
+        run: |
+          heroku container:login
+          heroku container:release web -a prisoners-dilemma-backend
         
         
     
