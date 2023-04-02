@@ -43,28 +43,6 @@ jobs:
       with:
         cmd: lint
         dir: 'frontend'
-    - name: Build production bundle
-      uses: borales/actions-yarn@v4
-      with:
-        cmd: build
-        dir: 'frontend'
-  
-#   build-frontend:
-#     needs: test-frontend 
-#     runs-on: ubuntu-22.04
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Log into Heroku
-#         run: HEROKU_API_KEY='7f8ccb1b-5a0f-48b3-89c1-843df01c40ec' heroku container:push web -a prisoners-dilemma
-#       - name: Build docker image
-#         working-directory: frontend
-#         run: docker build . --file Dockerfile --tag ghcr.io/pawelos991/frontend:${{ github.run_id }}
-#       - name: Log into GitHub Container Registry
-#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-#       - name: Push image to GitHub Container Registry
-#         run: |
-#           IMAGE_ID=ghcr.io/pawelos991/frontend:${{ github.run_id }}
-#           docker push $IMAGE_ID
     
   build-backend:
     needs: test-backend 
@@ -79,6 +57,24 @@ jobs:
           heroku container:login
           heroku container:push web -a prisoners-dilemma-backend
   
+  build-frontend:
+    needs: test-frontend 
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+          dir: 'frontend'
+      - name: Build docker image
+        working-directory: frontend
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:login
+          heroku container:push web -a prisoners-dilemma
+  
   deploy-backend:
     needs: build-backend
     runs-on: ubuntu-22.04
@@ -90,6 +86,18 @@ jobs:
         run: |
           heroku container:login
           heroku container:release web -a prisoners-dilemma-backend
+  
+  deploy-frontend:
+    needs: build-frontend
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy frontend image
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku container:login
+          heroku container:release web -a prisoners-dilemma
         
         
     
