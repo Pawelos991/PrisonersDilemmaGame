@@ -73,7 +73,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build docker image
         working-directory: backend
-        run: HEROKU_API_KEY='7f8ccb1b-5a0f-48b3-89c1-843df01c40ec' heroku container:push web -a prisoners-dilemma
+        run: |
+          set HEROKU_API_KEY=7f8ccb1b-5a0f-48b3-89c1-843df01c40ec
+          heroku container:push web -a prisoners-dilemma
         
         
     
