@@ -1,27 +1,25 @@
 # Prisoner's dilemma frontend
 
-## Wymagania
+## Requirements
 - Node
 - Yarn
 
-## Przygotowanie do uruchomienia
-Aby zainstalować wszystkie potrzebne komponenty, w katalogu <code>/frontend</code>
-należy wywołać komendę 
+## Preparation
+To install all necessary packages, starting in <code>/frontend</code> catalogue, 
+just run
 ```shell
 yarn install 
 ```
 
-## Uruchomienie
-Po wykonaniu skryptu instalacyjnego lokalne uruchomienie projektu jest 
-możliwe poprzez wykonanie komendy
+## Starting
+After the installation of the packages, you can start the application locally by
 ```shell
 yarn start dev
 ```
 
-## Budowa aplikacji do produkcji
-Aby zbudować źródła aplikacji do wydania produkcyjnego należy uruchomić komendę
+## Production build
+To build the application for production use
 ```shell
 yarn build
 ```
-Zbudowane źródła znajdą się w podkatalogu <code>/dist</code> 
-katalogu <code>/frontend</code>
+Built application is located at <code>/dist</code> 

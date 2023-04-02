@@ -1,13 +1,14 @@
 # Prisoner's dilemma backend
 
-## Wymagania
+## Requirements
 - Python 3.10
-- Pakiety
+- Packages
   - fastapi
   - uvicorn
 
-## Uruchomienie
-Aby uruchomić aplikację lokalnie, w katalogu <code>/backend</code> należy wywołać komendę
+## Starting
+To start the application locally, starting in <code>/backend</code> catalogue, 
+just run
 ```shell
 python main.py
 ```
